@@ -7,6 +7,7 @@ namespace DijkstraAlgoirthm
 	public class Dijkstra
 	{
 		private Graph _graph;
+        private PriorityQueue<Node> _nodesQueue;
 
 		public Dijkstra(Graph graph)
 		{
@@ -67,8 +68,8 @@ namespace DijkstraAlgoirthm
 			while (!isFinish)
 			{
                 //get the nearest node
-				var currentNode = GetNearestNode(checkingNodes);
-				checkingNodes.Remove(currentNode.Name);
+                var currentNode = GetNearestNode(checkingNodes);
+                checkingNodes.Remove(currentNode.Name);
 
                 //Update the distance from the currentNode to neighbor nodes
                 UpdateNeighborShortestDistanceFromCurrentNode(currentNode, checkingNodes.Values.ToList());
@@ -105,7 +106,9 @@ namespace DijkstraAlgoirthm
 			}
 
 			_graph.Nodes[fromNode].DistanceFromSource = 0;
-		}
+            _nodesQueue = new PriorityQueue<Node>();
+            _nodesQueue.Enqueue(_graph.Nodes[fromNode]);
+        }
 
 		private void UpdateNeighborShortestDistanceFromCurrentNode(Node currentNode, List<Node> remainingNodes)
 		{
@@ -122,12 +125,19 @@ namespace DijkstraAlgoirthm
 			}
 		}
 
-		private Node GetNearestNode(Dictionary<string, Node> nodes)
-		{
-			return nodes.OrderBy(i => i.Value.DistanceFromSource)
-						 .FirstOrDefault(i => !double.IsInfinity(i.Value.DistanceFromSource))
-						 .Value;
-		}
 
-	}
+        //private Node GetNearestNode()
+        //{
+        //    return _nodesQueue.Dequeue();
+        //}
+
+
+        private Node GetNearestNode(Dictionary<string, Node> nodes)
+        {
+            return nodes.OrderBy(i => i.Value.DistanceFromSource)
+                         .FirstOrDefault(i => !double.IsInfinity(i.Value.DistanceFromSource))
+                         .Value;
+        }
+
+    }
 }

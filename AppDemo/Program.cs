@@ -49,6 +49,7 @@ namespace AppDemo
 		    };
 
             var graph = new Graph(nodes);
+
             var shortestPathAlgorithm = new Dijkstra(graph);
             var routes = shortestPathAlgorithm.FindShortestPathBetween("A", "F");
             Console.WriteLine("\nFor shortest path between A and F");

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace DijkstraAlgoirthm
 {
-	public class Node
-	{
+	public class Node : IComparable<Node>
+    {
 		public string Name { get; private set; }
 
 		public Node PreviousNode { get; set; }
@@ -27,6 +27,11 @@ namespace DijkstraAlgoirthm
         public override string ToString()
         {
             return Name;
+        }
+
+        public int CompareTo(Node dest)
+        {
+            return this.DistanceFromSource.CompareTo(dest.DistanceFromSource);
         }
     }
 }
