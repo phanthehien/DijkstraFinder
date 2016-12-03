@@ -36,7 +36,6 @@ namespace DijkstraAlgoirthm
 			while (!isFinish)
 			{
 				var currentNode = GetNearestNode();
-
 				checkingNodes.Remove(currentNode.Name);
 
 				//Calculate distance from start for each vertex in unvisited list.
@@ -47,17 +46,14 @@ namespace DijkstraAlgoirthm
 											.OrderBy(i => i.Value.DistanceFromSource)
 											.First();
 
-				//when we reach to the destination vertex and we nearly find the shortest path this condition will be satisfied .
 				if (_toNode == smallest.Key)
 				{
 					isFinish = true;
 					//calculate the shortest path from the Graph
 					results = CalculateShortestPath(smallest.Value);
 				}
-
 			}
 
-			//results.Add(_graph.Nodes[_fromNode]);
 			return results;
 		}
 
@@ -68,11 +64,13 @@ namespace DijkstraAlgoirthm
 
 			while (toPath.PreviousNode != null)
 			{
-				nodes.Add(toPath);
+				nodes.Insert(0, toPath);
 				toPath = toPath.PreviousNode;
 			}
 
-			return nodes;
+            nodes.Insert(0, toPath);
+
+            return nodes;
 		}
 
 		private void InitGraph()

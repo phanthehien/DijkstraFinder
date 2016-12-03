@@ -21,5 +21,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DijkstraAlgoirthm\DijkstraAlgoirthm.csproj">
+      <Project>{1D65DD75-9CD4-4649-AF85-A9F69523D7F6}</Project>
+      <Name>DijkstraAlgoirthm</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

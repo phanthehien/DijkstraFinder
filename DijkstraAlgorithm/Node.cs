@@ -23,5 +23,10 @@ namespace DijkstraAlgoirthm
 		{ 
 			NeighborPaths.Add(new Path(node, distance));
 		}
-	}
+
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
 }
