@@ -7,56 +7,80 @@ namespace DijkstraAlgoirthm
 	public class Dijkstra
 	{
 		private Graph _graph;
-		private string _fromNode;
-		private string _toNode;
 
 		public Dijkstra(Graph graph)
 		{
 			_graph = graph;
-
 		}
-
-		public List<Node> FindhortestPath(string fromNode, string toNode)
+        
+        public List<Node> FindShortestPathBetween(string fromNode, string toNode)
 		{
-			_fromNode = fromNode;
-			_toNode = toNode;
-
-			InitGraph();
-
-			return ProcessDijkstra();
+			InitGraph(fromNode);
+			return ProcessDijkstraForShortestPathsTo(toNode);
 		}
 
-		private List<Node> ProcessDijkstra()
+        public Dictionary<string, List<Node>> FindShortestPathToAllDestination(string fromNode)
+        {
+            InitGraph(fromNode);
+            return ProcessDijkstraForShortestPathsToAllNodes();
+        }
+
+        private List<Node> ProcessDijkstraForShortestPathsTo(string toNode)
+        {
+            //condition for the while loop and make sure we visit all the vertex in the Graph.
+            bool isFinish = false;
+            var checkingNodes = new Dictionary<string, Node>(_graph.Nodes);
+            var results = new List<Node>();
+
+            while (!isFinish)
+            {
+                //get the nearest node
+                var currentNode = GetNearestNode(checkingNodes);
+                checkingNodes.Remove(currentNode.Name);
+
+                //Update the distance from the currentNode to neighbor nodes
+                UpdateNeighborShortestDistanceFromCurrentNode(currentNode, checkingNodes.Values.ToList());
+
+                //Get the vertex's nearest (smallest) distance from start as a path of nearest path. 
+                var smallest = checkingNodes.Where(i => i.Value != currentNode)
+                                            .OrderBy(i => i.Value.DistanceFromSource)
+                                            .First();
+
+                if (toNode == smallest.Key)
+                {
+                    isFinish = true;
+                    //calculate the shortest path from the Graph
+                    results = CalculateShortestPath(smallest.Value);
+                }
+            }
+
+            return results;
+        }
+
+        private Dictionary<string, List<Node>> ProcessDijkstraForShortestPathsToAllNodes()
 		{
 			//condition for the while loop and make sure we visit all the vertex in the Graph.
 			bool isFinish = false;
-			var checkingNodes = _graph.Nodes;
-			var results = new List<Node>();
+			var checkingNodes = new Dictionary<string, Node>(_graph.Nodes);
+			var results = new Dictionary<string, List<Node>>();
 
 			while (!isFinish)
 			{
-				var currentNode = GetNearestNode();
+                //get the nearest node
+				var currentNode = GetNearestNode(checkingNodes);
 				checkingNodes.Remove(currentNode.Name);
 
-				//Calculate distance from start for each vertex in unvisited list.
-				UpdateVertexDistance(currentNode, checkingNodes.Values.ToList());
-
-				//Get the vertex's nearest (smallest) distance from start as a path of nearest path. 
-				var smallest = checkingNodes.Where(i => i.Value != currentNode)
-											.OrderBy(i => i.Value.DistanceFromSource)
-											.First();
-
-				if (_toNode == smallest.Key)
-				{
-					isFinish = true;
-					//calculate the shortest path from the Graph
-					results = CalculateShortestPath(smallest.Value);
-				}
+                //Update the distance from the currentNode to neighbor nodes
+                UpdateNeighborShortestDistanceFromCurrentNode(currentNode, checkingNodes.Values.ToList());
+                isFinish = checkingNodes.Count == 0;
 			}
 
+            foreach (var node in _graph.Nodes)
+            {
+                results.Add(node.Key, CalculateShortestPath(node.Value));
+            }
 			return results;
 		}
-
 
 		private List<Node> CalculateShortestPath(Node toPath)
 		{
@@ -73,19 +97,19 @@ namespace DijkstraAlgoirthm
             return nodes;
 		}
 
-		private void InitGraph()
+		private void InitGraph(string fromNode)
 		{
 			foreach (var node in _graph.Nodes.Values)
 			{
 				node.DistanceFromSource = double.PositiveInfinity;
 			}
 
-			_graph.Nodes[_fromNode].DistanceFromSource = 0;
+			_graph.Nodes[fromNode].DistanceFromSource = 0;
 		}
 
-		private void UpdateVertexDistance(Node currentNode, List<Node> vertecies)
+		private void UpdateNeighborShortestDistanceFromCurrentNode(Node currentNode, List<Node> remainingNodes)
 		{
-			var neighbors = currentNode.NeighborPaths.Where(a => vertecies.Contains(a.Destination));
+			var neighbors = currentNode.NeighborPaths.Where(a => remainingNodes.Contains(a.Destination));
 
 			foreach (var neighbor in neighbors)
 			{
@@ -98,12 +122,11 @@ namespace DijkstraAlgoirthm
 			}
 		}
 
-		private Node GetNearestNode()
+		private Node GetNearestNode(Dictionary<string, Node> nodes)
 		{
-			return _graph.Nodes.OrderBy(i => i.Value.DistanceFromSource)
+			return nodes.OrderBy(i => i.Value.DistanceFromSource)
 						 .FirstOrDefault(i => !double.IsInfinity(i.Value.DistanceFromSource))
 						 .Value;
-
 		}
 
 	}

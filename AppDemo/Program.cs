@@ -13,6 +13,7 @@ namespace AppDemo
         {
             Console.WriteLine("Test DijktraAlgorithm!");
 
+            //Define nodes and their paths to neighbors
             var nodeA = new Node("A");
             var nodeB = new Node("B");
             var nodeC = new Node("C");
@@ -23,7 +24,8 @@ namespace AppDemo
             //var nodeH = new Node("H");
             //var nodeI = new Node("I");
             //var nodeJ = new Node("J");
-
+            
+            //Define neighbor (Path) to other nodes
             nodeA.AddNeighbor(nodeB, 6);
             nodeA.AddNeighbor(nodeD, 1);
             nodeA.AddNeighbor(nodeF, 20);
@@ -35,28 +37,29 @@ namespace AppDemo
             nodeC.AddNeighbor(nodeF, 2);
 
             nodeD.AddNeighbor(nodeE, 1);
+            nodeD.AddNeighbor(nodeB, 4);
             nodeD.AddNeighbor(nodeF, 21);
 
             nodeE.AddNeighbor(nodeC, 5);
 
-            
-
-
             var nodes = new List<Node>
-        {
-            nodeA, nodeB, nodeC, nodeD, nodeE, 
-			nodeF, //nodeG, nodeH, nodeI, nodeJ
-		};
+            {
+                nodeA, nodeB, nodeC, nodeD, nodeE,
+                nodeF, //nodeG, nodeH, nodeI, nodeJ
+		    };
 
             var graph = new Graph(nodes);
             var shortestPathAlgorithm = new Dijkstra(graph);
-            var routes = shortestPathAlgorithm.FindhortestPath("A", "F");
+            var routes = shortestPathAlgorithm.FindShortestPathBetween("A", "F");
+            Console.WriteLine("\nFor shortest path between A and F");
+            Console.WriteLine(string.Format("Shortest route: {0}", string.Join(" => ", routes)));
 
-            Console.WriteLine(string.Format("Route: {0}", string.Join(" => ", routes)));
-            //for (int i = routes.Count - 1; i >= 0; i--)
-            //{
-            //    Console.WriteLine(routes[i].Name);
-            //}
+            var allRoutes = shortestPathAlgorithm.FindShortestPathToAllDestination("A");
+            Console.WriteLine("\nFor all distances from A");
+            foreach (var route in allRoutes)
+            {
+                Console.WriteLine(string.Format("Shortest route From A To {0}: {1}", route.Key, string.Join(" => ", route.Value)));
+            }
         }
     }
 }
