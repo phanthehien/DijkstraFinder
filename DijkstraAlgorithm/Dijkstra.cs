@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DijkstraAlgoirthm
+namespace DijkstraAlgorithm
 {
 	public class Dijkstra
 	{

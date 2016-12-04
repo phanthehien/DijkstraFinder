@@ -1,5 +1,5 @@
 ﻿using System;
-namespace DijkstraAlgoirthm
+namespace DijkstraAlgorithm
 {
 	public class Path
 	{

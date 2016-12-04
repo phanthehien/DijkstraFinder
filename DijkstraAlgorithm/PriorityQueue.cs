@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DijkstraAlgoirthm
+namespace DijkstraAlgorithm
 {
     public class PriorityQueue<T> where T : IComparable<T>
     {

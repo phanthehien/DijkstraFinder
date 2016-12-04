@@ -3,3 +3,46 @@ https://visualstudiomagazine.com/Articles/2012/11/01/Priority-Queues-with-C.aspx
 
 //Binary heap for Priority Queue
 https://visualstudiomagazine.com/Articles/2012/11/01/~/media/ECG/visualstudiomagazine/Images/2012/11/1112vsm_F2_Figure2_hires.ashx
+
+
+1  function Dijkstra(Graph, source):
+ 2      for each vertex v in Graph:           // Initializations
+
+ 3          dist[v] := infinity               // Unknown distance
+                                              // function from source to v
+ 4          previous[v] := undefined
+ 5      dist[source] := 0                     // Distance from source to source
+
+ 6      Q := copy(Graph)                      // All nodes in the graph
+                                              // are unoptimized - thus are in Q
+ 7      while Q is not empty:                 // The main loop
+
+ 8          u := extract_min(Q)               // Remove and return best vertex
+                                              // from nodes in two given nodes
+                                              // we would use a path finding algorithm
+                                              // on the new graph,
+                                              // such as depth-first search.
+
+ 9          for each neighbor v of u:         // where v has not yet been removed from Q.
+10              alt = dist[u] + length(u, v)
+
+11              if alt &lt; dist[v]              // Relax (u,v)
+12                  dist[v] := alt
+
+13                  previous[v] := u
+14      return previous[]
+
+
+https://www.codeproject.com/Articles/24816/A-Fast-Priority-Queue-Implementation-of-the-Dijkst
+//Priority Queue
+Take the origin vertex, set the weight of the shortest path to 0 and
+push it onto the priority queue.
+
+while the priority queue is not empty, pop an entry &lt;v,w_v,p_v>where
+v is the vertex, w_v and p_v are the augmented labels of v.
+foreach edge e=(v,u) in G, where u has augmented labels w_u, p_u.
+
+if wt(e) + w_v &lt; w_u then
+set p_u to v
+set w_u to wt(e) + w_v
+add &lt;u,>to the priority queue.
