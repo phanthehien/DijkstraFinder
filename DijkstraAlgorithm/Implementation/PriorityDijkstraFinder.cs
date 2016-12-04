@@ -34,6 +34,7 @@ namespace DijkstraAlgorithm.Implementation
 
         private List<Node> ProcessDijkstraForShortestPathsTo(string toNode)
         {
+            InitStartingNodeDistance(_graph.Nodes[_fromNode]);
             var results = new List<Node>();
             while (_nodesQueue.Count() != 0)
             {
