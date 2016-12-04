@@ -1,7 +1,7 @@
 ﻿using System;
-namespace DijkstraAlgorithm
+namespace DijkstraAlgorithm.Model
 {
-	public class Path
+    public class Path
 	{
 		public Node Destination { get; private set; }
 

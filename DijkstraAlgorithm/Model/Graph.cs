@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DijkstraAlgorithm
+namespace DijkstraAlgorithm.Model
 {
 	public class Graph
 	{

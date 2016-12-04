@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DijkstraAlgorithm
+namespace DijkstraAlgorithm.Common
 {
     public class PriorityQueue<T> where T : IComparable<T>
     {
@@ -104,23 +104,6 @@ namespace DijkstraAlgorithm
             builder.AppendFormat("count = {0}", _bTree.Count);
             return builder.ToString();
         }
-
-        //public bool IsConsistent()
-        //{
-        //    // is the heap property true for all data?
-        //    if (_data.Count == 0) return true;
-
-        //    int li = _data.Count - 1; // last index
-        //    for (int pi = 0; pi < _data.Count; ++pi) // each parent index
-        //    {
-        //        int lci = 2 * pi + 1; // left child index
-        //        int rci = 2 * pi + 2; // right child index
-
-        //        if (lci <= li && _data[pi].CompareTo(_data[lci]) > 0) return false; // if lc exists and it's greater than parent then bad.
-        //        if (rci <= li && _data[pi].CompareTo(_data[rci]) > 0) return false; // check the right child too.
-        //    }
-        //    return true; // passed all checks
-        //} // IsConsistent
     }
 }
 

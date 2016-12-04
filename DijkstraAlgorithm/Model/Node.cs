@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DijkstraAlgorithm
+namespace DijkstraAlgorithm.Model
 {
-	public class Node : IComparable<Node>
+    public class Node : IComparable<Node>
     {
 		public string Name { get; private set; }
 

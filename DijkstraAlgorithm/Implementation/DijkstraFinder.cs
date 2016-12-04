@@ -1,15 +1,18 @@
-﻿using System;
+﻿using DijkstraAlgorithm.Common;
+using DijkstraAlgorithm.Interface;
+using DijkstraAlgorithm.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DijkstraAlgorithm
+namespace DijkstraAlgorithm.Implementation
 {
-	public class Dijkstra
-	{
+    public class DijkstraFinder : IShortestDistanceFinder
+    {
 		private Graph _graph;
         private PriorityQueue<Node> _nodesQueue;
 
-		public Dijkstra(Graph graph)
+		public DijkstraFinder(Graph graph)
 		{
 			_graph = graph;
 		}

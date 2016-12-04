@@ -1,19 +1,21 @@
-﻿using DijkstraAlgorithm;
+﻿using DijkstraAlgorithm.Common;
+using DijkstraAlgorithm.Interface;
+using DijkstraAlgorithm.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DijkstraAlgorithm
+namespace DijkstraAlgorithm.Implementation
 {
-    public class PriorityDijkstra
+    public class PriorityDijkstraFinder : IShortestDistanceFinder
     {
         private string _fromNode;
         private Graph _graph;
         private PriorityQueue<Node> _nodesQueue;
 
-        public PriorityDijkstra(Graph graph)
+        public PriorityDijkstraFinder(Graph graph)
         {
             _graph = graph;
         }
@@ -110,7 +112,7 @@ namespace DijkstraAlgorithm
             _nodesQueue = new PriorityQueue<Node>();
         }
 
-        protected virtual void InitStartingNodeDistance(Node currentNode)
+        private  void InitStartingNodeDistance(Node currentNode)
         {
             var neighborPaths = currentNode.NeighborPaths.Where(a => _graph.Nodes.Values.Contains(a.Destination));
 

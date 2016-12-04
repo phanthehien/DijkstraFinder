@@ -40,12 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dijkstra.cs" />
-    <Compile Include="Graph.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="Path.cs" />
-    <Compile Include="PriorityDijkstra.cs" />
-    <Compile Include="PriorityQueue.cs" />
+    <Compile Include="Implementation\DijkstraFinder.cs" />
+    <Compile Include="Interface\IShortestDistanceFinder.cs" />
+    <Compile Include="Model\Graph.cs" />
+    <Compile Include="Model\Node.cs" />
+    <Compile Include="Model\Path.cs" />
+    <Compile Include="Implementation\PriorityDijkstraFinder.cs" />
+    <Compile Include="Common\PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

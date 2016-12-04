@@ -1,4 +1,6 @@
 ﻿using DijkstraAlgorithm;
+using DijkstraAlgorithm.Implementation;
+using DijkstraAlgorithm.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +52,7 @@ namespace AppDemo
 
             var graph = new Graph(nodes);
 
-            var shortestPathAlgorithm = new PriorityDijkstra(graph);
+            var shortestPathAlgorithm = new PriorityDijkstraFinder(graph);
             var routes = shortestPathAlgorithm.FindShortestPathBetween("A", "F");
             Console.WriteLine("\nFor shortest path between A and F");
             Console.WriteLine(string.Format("Shortest route: {0}", string.Join(" => ", routes)));
