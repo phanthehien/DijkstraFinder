@@ -142,5 +142,74 @@ namespace AlgorithmTests
             Assert.AreEqual(routes[2].Name, "B");
 
         }
+
+        [TestMethod]
+        public void From_A_to_D_should_be_ABCD()
+        {
+            var nodeA = new Node("A");
+            var nodeB = new Node("B");
+            var nodeC = new Node("C");
+            var nodeD = new Node("D");
+            var nodeE = new Node("E");
+
+
+            //Define neighbor (Path) to other nodes
+            nodeA.AddNeighbor(nodeB, 3);
+            nodeB.AddNeighbor(nodeC, 3);
+            nodeC.AddNeighbor(nodeD, 3);
+            nodeD.AddNeighbor(nodeE, 3);
+
+            var nodes = new List<Node>
+            {
+                nodeA, nodeB, nodeC,
+                nodeD, nodeE
+            };
+
+            var graph = new Graph(nodes);
+
+            var shortestPathAlgorithm = new PriorityDijkstraFinder(graph);
+            var routes = shortestPathAlgorithm.FindShortestPathBetween("A", "D");
+            Assert.AreEqual(routes.Count, 4);
+            Assert.AreEqual(routes[0].Name, "A");
+            Assert.AreEqual(routes[1].Name, "B");
+            Assert.AreEqual(routes[2].Name, "C");
+            Assert.AreEqual(routes[3].Name, "D");
+
+        }
+
+        [TestMethod]
+        public void From_A_to_D_should_be_ACD()
+        {
+            var nodeA = new Node("A");
+            var nodeB = new Node("B");
+            var nodeC = new Node("C");
+            var nodeD = new Node("D");
+            var nodeE = new Node("E");
+
+
+            //Define neighbor (Path) to other nodes
+            nodeA.AddNeighbor(nodeB, 3);
+            nodeB.AddNeighbor(nodeC, 3);
+            nodeC.AddNeighbor(nodeD, 3);
+            nodeD.AddNeighbor(nodeE, 3);
+            nodeA.AddNeighbor(nodeC, 5);
+
+
+            var nodes = new List<Node>
+            {
+                nodeA, nodeB, nodeC,
+                nodeD, nodeE
+            };
+
+            var graph = new Graph(nodes);
+
+            var shortestPathAlgorithm = new PriorityDijkstraFinder(graph);
+            var routes = shortestPathAlgorithm.FindShortestPathBetween("A", "D");
+            Assert.AreEqual(routes.Count, 3);
+            Assert.AreEqual(routes[0].Name, "A");
+            Assert.AreEqual(routes[1].Name, "C");
+            Assert.AreEqual(routes[2].Name, "D");
+
+        }
     }
 }
